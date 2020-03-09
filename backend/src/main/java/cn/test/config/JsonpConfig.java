@@ -19,13 +19,13 @@ public class JsonpConfig {
 	public MappingJackson2HttpMessageConverter getMappingJackson2HttpMessageConverter() {
 		return new MappingJackson2HttpMessageConverter() {
 			// 做jsonp的支持的标识，在请求参数中加该参数
-			private String callbackName = "callback";
+			private final static String CALLBACK = "callback";
 
 			// 获取callback参数
 			private String parseCallbackParam() {
 				HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder
 						.currentRequestAttributes()).getRequest();
-				return request.getParameter(callbackName);
+				return request.getParameter(CALLBACK);
 			}
 
 			@Override

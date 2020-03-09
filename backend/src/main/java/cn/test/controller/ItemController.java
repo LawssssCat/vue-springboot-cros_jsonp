@@ -15,14 +15,4 @@ import cn.test.utils.JsonResult;
 @RestController
 public class ItemController {
 
-	private static List<Order> items;
-	static {
-		items = Order.fakers() ;
-	}
-
-	@GetMapping("/list")
-	public JsonResult<List<Order>> getOrderList() {
-		return JsonResult.ok(this.items);
-	}
-	
 }

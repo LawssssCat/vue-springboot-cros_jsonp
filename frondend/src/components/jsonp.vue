@@ -14,21 +14,24 @@ export default {
   },
   methods: {
     getItems () {
-      return new Promise((resolve) => {
+      return new Promise(() => {
         let url = this.$store.state.url
-        let xhr = new XMLHttpRequest()
-        xhr.open('GET', url)
-        xhr.send()
-        xhr.onload = (e) => {
-          resolve(e.target)
-        }
-      }).then(xhr => {
-        let body = JSON.parse(xhr.response)
-        if (body.code === 200) {
-          this.$store.commit('updateItems', body.data)
+        if (url.indexOf('?') === -1) url += '?'
+        else url += '&'
+        url += 'callback=document.callback'
+
+        let script = document.createElement('script')
+        script.src = url
+
+        document.body.appendChild(script)
+        document.callback = function (result) {
+          document.write('看看控制台~')
+          console.log(result)
+          document.body.removeChild(script)
         }
       })
     }
+
   }
 }
 </script>

@@ -5,6 +5,7 @@
     </slot>
     <slot name="buttons">
       <button :class="{ active: isShow }" @click="toggle">show</button>
+      <button @click="reset">reset</button>
     </slot>
     <slot name="show">
       <ul v-if="isShow">
@@ -32,6 +33,14 @@ export default {
     title: String
   },
   methods: {
+    reset () {
+      if (this.$parent.resetItems) {
+        this.$parent.resetItems()
+      } else {
+        this.$store.commit('resetItems')
+      }
+      this.isShow = false
+    },
     toggle () {
       if (this.isShow) {
         this.isShow = false

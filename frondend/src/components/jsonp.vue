@@ -1,6 +1,12 @@
 <template>
   <div>
-    <dashboard title="jsonp" ></dashboard>
+    <dashboard title="jsonp" >
+      <template v-slot:show>
+        <p>
+          点击 show 展示数据<font color='#f10111'>（在控制台中）</font>
+        </p>
+      </template>
+    </dashboard>
   </div>
 </template>
 
@@ -13,9 +19,9 @@ export default {
     Dashboard
   },
   methods: {
-    getItems () {
-      return new Promise(() => {
-        let url = this.$store.state.url
+    getItems (url) {
+      return new Promise((resolve) => {
+        if (!url) url = this.$store.state.url
         if (url.indexOf('?') === -1) url += '?'
         else url += '&'
         url += 'callback=document.callback'
@@ -25,10 +31,10 @@ export default {
 
         document.body.appendChild(script)
         document.callback = function (result) {
-          document.write('看看控制台~')
           console.log(result)
           document.body.removeChild(script)
         }
+        resolve()
       })
     }
 

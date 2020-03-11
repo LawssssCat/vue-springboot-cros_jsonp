@@ -5,7 +5,7 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    url: 'http://localhost:8001/item-server/list',
+    url: 'http://localhost:8001/home/multidata',
     items: []
   },
   mutations: {

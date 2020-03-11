@@ -1,17 +1,20 @@
 <template>
   <div>
+    <!--标题-->
     <slot name="title">
       <h3>------ {{ title }} ---------</h3>
     </slot>
+    <!-- 按钮 -->
     <slot name="buttons">
       <button :class="{ active: isShow }" @click="toggle">show</button>
       <button @click="reset">reset</button>
     </slot>
+    <!-- 提示 -->
     <slot name="show">
       <ul v-if="isShow">
         <li v-for="item in items" :key="item.id">{{ item }}</li>
       </ul>
-      <p v-if="!isShow">点击show展示数据</p>
+      <p v-if="!isShow">点击show展示数据！</p>
     </slot>
   </div>
 </template>
